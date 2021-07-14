@@ -51,6 +51,8 @@ plot(x = Fatalities1988$beertax,
 
 abline(fatal1988_mod, lwd = 1.5)
 
+
+#Need to fix this code so that it outputs to a directory
 filename = paste("traffic")
 figures <- file.path("C:/Users/carso/OneDrive/Documents/6_programming/r/r_econometrics/figures/",
                      paste(filename,".png",sep=""))
@@ -73,8 +75,6 @@ Fatalities_demeaned <- with(Fatalities,
 
 #Estimating a Fixed Effects Regression
 summary(lm(fatal_rate ~ beertax - 1, data = Fatalities_demeaned))
-
-library(plm)
 
 fatal_fe_mod <- plm(fatal_rate ~ beertax,
                     data = Fatalities,
@@ -137,8 +137,6 @@ fatalities_mod7 <- plm(fatal_rate ~ beertax + state + year + drinkagec
                        model = "within",
                        effect = "twoways",
                        data = Fatalities_1982_1988)
-
-library(stargazer)
 
 # gather clustered standard errors in a list
 rob_se <- list(sqrt(diag(vcovHC(fatalities_mod1, type = "HC1"))),
